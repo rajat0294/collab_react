@@ -9,6 +9,6 @@ This application uses mongodb as database
   - `sudo mkdir data`
   - `cd data`
   - `sudo mkdir db`
-  - Step 3: Go to the folder `collab_react` and Run `docker-compose up -d`
+  - Step 3: Go to the folder `core-spider-security` and Run `docker-compose up -d`
   - Application will run on  ``http://localhost:8080``
  
