@@ -1,0 +1,2 @@
+spring.data.mongodb.uri: ${SPRING_DATA_MONGODB_URI}
+#mongodb+srv://rajat_shubham:FgkblVTydIeIfVNb@cluster0.swslyft.mongodb.net/spiders
