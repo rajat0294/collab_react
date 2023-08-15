@@ -9,6 +9,12 @@ import com.spider.corespringsecurity.entity.RefreshToken;
 import com.spider.corespringsecurity.service.JwtService;
 import com.spider.corespringsecurity.service.RefreshTokenService;
 import com.spider.corespringsecurity.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,11 +34,29 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final UserService userService;
 
+    @Operation(
+            summary = "Signup to app",
+            description ="provide username,email & password in app",
+            tags = { "Authentication", "POST" })
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = UserResponse.class), mediaType = "application/json") }),
+            @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
+            @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
+
     @PostMapping("/signup")
-    public UserResponse addNewUser(@RequestBody UserSignUpRequest userInfo) {
+    public UserResponse addNewUser(@RequestBody @Valid UserSignUpRequest userInfo) {
         return userService.addUser(userInfo);
     }
 
+
+    @Operation(
+            summary = "login to app",
+            description ="provide email & password in api ",
+            tags = { "Authentication", "POST" })
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = JwtResponse.class), mediaType = "application/json") }),
+            @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
+            @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
     @PostMapping("/login")
     public JwtResponse authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
@@ -46,6 +70,14 @@ public class AuthController {
         }
     }
 
+    @Operation(
+            summary = "API to get access/refresh token by  giving long lived token ",
+            description = "This API is used for getting refresh token in exchange of long lived token",
+            tags = { "Authentication", "POST" })
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = JwtResponse.class), mediaType = "application/json") }),
+            @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
+            @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
     @PostMapping("/refreshToken")
     public JwtResponse refreshToken(@RequestBody RefreshTokenRequest refreshTokenRequest) {
         return refreshTokenService.findByToken(refreshTokenRequest.getToken())

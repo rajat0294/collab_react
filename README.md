@@ -12,3 +12,6 @@ This application uses mongodb as database
   - Step 3: Go to the folder `core-spider-security` and Run `docker-compose up -d`
   - Application will run on  ``http://localhost:8080``
  
+### Swagger Url
+ - API Docs : http://localhost:8080/v3/api-docs
+ - Swagger url: http://localhost:8080/swagger-ui/index.html
