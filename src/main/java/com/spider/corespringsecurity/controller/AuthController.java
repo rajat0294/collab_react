@@ -37,7 +37,7 @@ public class AuthController {
     @Operation(
             summary = "Signup to app",
             description ="provide username,email & password in app",
-            tags = { "Authentication", "POST" })
+            tags = { "Authentication" })
     @ApiResponses({
             @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = UserResponse.class), mediaType = "application/json") }),
             @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
@@ -52,7 +52,7 @@ public class AuthController {
     @Operation(
             summary = "login to app",
             description ="provide email & password in api ",
-            tags = { "Authentication", "POST" })
+            tags = { "Authentication" })
     @ApiResponses({
             @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = JwtResponse.class), mediaType = "application/json") }),
             @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
@@ -73,7 +73,7 @@ public class AuthController {
     @Operation(
             summary = "API to get access/refresh token by  giving long lived token ",
             description = "This API is used for getting refresh token in exchange of long lived token",
-            tags = { "Authentication", "POST" })
+            tags = { "Authentication" })
     @ApiResponses({
             @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = JwtResponse.class), mediaType = "application/json") }),
             @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
